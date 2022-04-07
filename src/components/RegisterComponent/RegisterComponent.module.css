@@ -1,0 +1,103 @@
+@media screen and (max-width: 700px) {
+    .info_side {
+        display: none !important;
+    }
+
+    .elogroup_small_logo {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 701px) {
+
+    /* Show small logo */
+    .elogroup_small_logo {
+        display: none !important;
+    }
+}
+
+.root {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.info_side {
+    background-color: #171B1C;
+    min-height: 200px;
+    width: 100%;
+    max-width: 50%;
+    display: flex;
+    align-content: space-between;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.elogroup_logo {
+    width: 100%;
+    height: auto;
+}
+
+.elogroup_small_logo {
+    width: 60%;
+    height: auto;
+    margin-bottom: 10%;
+}
+
+.register_side {
+    background-color: #F0F0F7;
+    min-height: 200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login_label {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.register_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.register_form input {
+    font-size: 16px;
+    font-weight: normal;
+    background: rgba(57, 57, 57, 0.07);
+    margin: 12.5px 0;
+    height: 65px;
+    border: none;
+    padding: 0 30px;
+    border-radius: 10px;
+    width: 60%;
+}
+
+.register_form input[type=button] {
+    color: #FFFFFF;
+    background: black;
+    cursor: pointer;
+    opacity: 0.8;
+    width: 30%;
+}
+
+.register_form input[type=button]:hover {
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.register{
+    position: relative;
+}
+
+.back_image{
+    max-width: 2rem;
+    max-height: 2rem;
+    color: white;
+    margin: 10px 0 0 10px;
+}
