@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import styles from './ArrowBack.module.css';
+import styles from './Navbar.module.css';
 
 interface NavBar { }
 
