@@ -1,20 +1,26 @@
-import './components/LoginComponent/LoginComponent'
-import LoginComponent from './components/LoginComponent/LoginComponent';
+// Importing dependencies
+import './components/Login/LoginComponent'
 import {
   BrowserRouter,
   Routes,
   Route,
   Link
 } from "react-router-dom";
-import RegisterComponent from './components/RegisterComponent/RegisterComponent';
+
+// Importing Views
+import LoginView from './views/Login/LoginView';
+import RegisterView from './views/Register/RegisterView';
+import LeadsView from './views/Leads/LoginView';
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LoginComponent/>} />
-        <Route path="/register" element={<RegisterComponent/>} />
-        <Route path="*" element={<LoginComponent/>} /> {/* 404 */}
+        <Route path="/" element={<LoginView/>} />
+        <Route path="/register" element={<RegisterView/>} />
+        <Route path="/leads" element={ <LeadsView/> } />
+        <Route path="*"/> {/* 404 */}
       </Routes>
     </BrowserRouter>
   );
