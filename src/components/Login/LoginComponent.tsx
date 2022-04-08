@@ -1,15 +1,18 @@
 import React, { FC, useState } from 'react';
-import { Link, useNavigate  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from './LoginComponent.module.css';
 import logo from '../../img/elogroup_logo.png';
 import small_logo from '../../img/elogroup_small_logo.png';
 interface LoginComponentProps { }
 
-const LoginComponent: FC<LoginComponentProps> = () => {
-  let navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
 
+
+
+function LoginComponent() {
+
+  const [username, setUsername] = useState("");
+  let navigate = useNavigate();
+  const [password, setPassword] = useState("");
   // Encryption lib
   const bcrypt = require('bcryptjs');
 

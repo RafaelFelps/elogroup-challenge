@@ -1,0 +1,13 @@
+.logout_image {
+    max-width: 2rem;
+    max-height: 2rem;
+    color: white;
+    margin: 10px 10px 0 10px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.logout_image:hover {
+    opacity: 1;
+    transition: 0.5s;
+}

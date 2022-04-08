@@ -6,13 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import ArrowBack from '../Generic/ArrowBack/ArrowBack';
 
 
-
-
-
-interface RegisterComponentProps { }
-
-
-const RegisterComponent: FC<RegisterComponentProps> = () => {
+function RegisterComponent() {
   let navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -42,10 +36,10 @@ const RegisterComponent: FC<RegisterComponentProps> = () => {
 
         // Get list of all users
         let allUsers = JSON.parse(localStorage.getItem("Users") || '[]');
-        
+
         localStorage.setItem('Users', JSON.stringify([...allUsers, user]));
         navigate(-1);
-        
+
       }, function (value) {
         // not called
       });
