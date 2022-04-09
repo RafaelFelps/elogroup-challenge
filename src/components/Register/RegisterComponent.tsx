@@ -8,6 +8,8 @@ import ArrowBack from '../Generic/ArrowBack/ArrowBack';
 
 function RegisterComponent() {
   let navigate = useNavigate();
+  const Swal = require('sweetalert2');
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -24,28 +26,54 @@ function RegisterComponent() {
   // Register user
   function registerUser(username: string, password: string, confirmPassword: string) {
 
-    // Validate if password matches
-    if (password === confirmPassword) {
-      // Password encryption
-      Promise.resolve(hashIt(password)).then(function (value) {
+    // Password encryption
+    Promise.resolve(hashIt(password)).then(function (value) {
 
-        const user = {
-          username: username,
-          password: value,
-        };
+      const user = {
+        username: username,
+        password: value,
+      };
 
-        // Get list of all users
-        let allUsers = JSON.parse(localStorage.getItem("Users") || '[]');
+      // Get list of all users
+      let allUsers = JSON.parse(localStorage.getItem("Users") || '[]');
 
-        localStorage.setItem('Users', JSON.stringify([...allUsers, user]));
-        navigate(-1);
+      localStorage.setItem('Users', JSON.stringify([...allUsers, user]));
+      navigate(-1);
 
-      }, function (value) {
-        // not called
-      });
-    } else {
-      return console.log("Error");
-    }
+      ShowModal("success")
+
+    }, function (value) {
+      // not called
+    });
+
+  }
+  // Show modal
+  function ShowModal(type: string, message?: string) {
+    let title;
+    type === "success" ? title = "Operação concluída com sucesso" : title = "Ooops";
+
+    Swal.fire({
+      icon: type,
+      title: title,
+      showConfirmButton: false,
+      html: message,
+    })
+  }
+
+  // Verify if string have special charachters
+  function containsSpecialChars(str: string) {
+    const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    return specialChars.test(str);
+  }
+
+  // Verify if string have number charachters
+  function containsNumberChars(str: string) {
+    return /\d/.test(str);
+  }
+
+  // Verify if string have uppercase charachters
+  function containsUppercaseChars(str: string) {
+    return (/[A-Z]/.test(str));
   }
 
   // Form handle
@@ -53,22 +81,47 @@ function RegisterComponent() {
     // Preventing the page from reloading
     event.preventDefault();
     const { user, password, confirmPassword } = document.forms[0];
+    let hasErrors = false;
 
+    // Validate if all fields are filled
     if (user.value === "" || password.value === "" || confirmPassword.value === "") {
-      // Return error alert and add css to inputs
-      const Swal = require('sweetalert2');
-      Swal.fire({
-        icon: 'error',
-        title: 'Ooops',
-        showConfirmButton: false,
-        text: 'Insira todos os campos e tente novamente',
-      })
-    } else {
+      hasErrors = true;
+      ShowModal("error", "Preencha todos os campos, tente novamente.");
+      return;
+    }
+
+    // Valid if password maches with confirmPassword
+    if (password.value !== confirmPassword.value) {
+      hasErrors = true;
+      ShowModal("error", "As senhas não conferem, tente novamente.");
+      return;
+    }
+
+    // Valid if password have at minumun eight characters, contains special characters,
+    // numerical charactes, uppercase character 
+    const passwordLength = password.value.length;
+    const hasSpecialCharacters = containsSpecialChars(password.value);
+    const hasNumericCharacters = containsNumberChars(password.value);
+    const hasUppercaseCharacter = containsUppercaseChars(password.value);
+
+    if (passwordLength < 8 || !hasSpecialCharacters || !hasNumericCharacters || !hasUppercaseCharacter) {
+      const html = `
+        <div style="text-align:center">
+          <p>&#10095; A senha deve possuir no mínimo 8 caracteres. </p>
+          <p>&#10095; A senha deve possuir no mínimo 1 caractere especial.</p>
+          <p>&#10095; A senha deve possuir no mínimo 1 caractere numérico.</p>
+          <p>&#10095; A senha deve possuir no mínimo 1 caractere maiúsculo.</p>
+        </div>
+      `;
+
+      ShowModal("error", html);
+      return;
+    }
+
+    if (!hasErrors) {
       registerUser(user.value, password.value, confirmPassword.value);
     }
   }
-
-
 
   return (
     <div className={styles.root}>
@@ -97,7 +150,6 @@ function RegisterComponent() {
         </div>
       </div>
     </div>
-
   )
 
 }

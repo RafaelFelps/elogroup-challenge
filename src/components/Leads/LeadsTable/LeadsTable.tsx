@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import data from './initial-data';
 import LeadsColumn from './LeadsColumn/LeadsColumn';
 import styled from 'styled-components'
 import { DragDropContext } from 'react-beautiful-dnd';
-import initialData from './initial-data';
 
 
 const ColumnsLine = styled.div`
@@ -11,61 +10,134 @@ const ColumnsLine = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: stretch; 
-`
+    /* Block text selection */
+    user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
+    
+`;
+const Container = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content:center;
 
-
-function onDragEnd(result: any) {
-    // TODO reorder our colu,ms
-    const { destination, source, draggableId } = result;
-    if (!destination) {
-        return;
-    }
-
-    if (destination.droppableId === source.droppableId &&
-        destination.index === source.index) {
-        return;
-    }
-
-    const column = initialData.columns[source.index];
-    const newTaskIds = Array.from(column.taskIds);
-    newTaskIds.splice(source.index, 1);
-    newTaskIds.splice(destination.index, 0, draggableId);
-
-    const newColumn = {
-        ...column,
-        taskIds: newTaskIds
-    }
-
-    const newState = {
-        ...initialData,
-        columns: {
-            ...initialData.columns,
-            [newColumn.id]: newColumn,
-        }
-    }
-    // initialData.setState(newState)
-
-    //setInitialData(newState);
-}
+`;
 
 function LeadsTable() {
-
     const [initialData, setInitialData] = useState(data);
+    const Swal = require('sweetalert2');
+
+    function canMove(source: String, destination: String) {
+        const sourceColumn = source.split("-")[1];
+        const destinationColumn = destination.split("-")[1];
+        const nextColumn = parseInt(sourceColumn) + 1;
+
+        if (destinationColumn < sourceColumn || (parseInt(destinationColumn) > nextColumn)) {
+            return false;
+        }  
+        return true;
+    }
+
+    function OnDragEnd(result: any) {
+        // TODO reorder our colu,ms
+        document.body.style.color = 'inherit';
+        const { destination, source, draggableId } = result;
+        if (!destination) {
+            return;
+        }
+
+        if (!canMove(source.droppableId, destination.droppableId)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Ooops',
+                showConfirmButton: false,
+                text: 'Esta operação não é permitida',
+            })
+            return;
+        }
+
+        if (destination.droppableId === source.droppableId &&
+            destination.index === source.index) {
+            return;
+        }
+
+        const start = initialData.columns[source.droppableId];
+        const finish = initialData.columns[destination.droppableId];
+
+        if (start === finish) {
+            const newTaskIds = Array.from(start.taskIds);
+            newTaskIds.splice(source.index, 1);
+            newTaskIds.splice(destination.index, 0, draggableId);
+
+            const newColumn = {
+                ...start,
+                taskIds: newTaskIds
+            }
+
+            const newState = {
+                ...initialData,
+                columns: {
+                    ...initialData.columns,
+                    [newColumn.id]: newColumn,
+                }
+            }
+
+            setInitialData(newState);
+            return;
+        }
+
+        // Move from one list to another
+        const startTaskIds = Array.from(start.taskIds);
+        startTaskIds.splice(source.index, 1);
+        const newStart = {
+            ...start,
+            taskIds: startTaskIds,
+        }
+
+        const finishTaskIds = Array.from(finish.taskIds);
+        finishTaskIds.splice(destination.index, 0, draggableId);
+        const newFinish = {
+            ...finish,
+            taskIds: finishTaskIds,
+        }
+
+        const newState = {
+            ...initialData,
+            columns: {
+                ...initialData.columns,
+                [newStart.id]: newStart,
+                [newFinish.id]: newFinish
+            }
+        }
+        setInitialData(newState);
+
+    }
+
     return (
         <ColumnsLine>
 
-            <DragDropContext onDragEnd={onDragEnd} >
-                {
-                    initialData.columnOrder.map((columnId) => {
+            <DragDropContext onDragEnd={OnDragEnd}>
+                <Container>
+                    {
+                        initialData.columnOrder.map((columnId, index) => {
 
-                        const column = initialData.columns[columnId];
-                        const tasks = column.taskIds.map((taskId) => initialData.tasks[taskId]);
-
-                        return (
-                            <LeadsColumn key={column.id} column={column} tasks={tasks} />
-                        );
-                    })
-                }
+                            const column = initialData.columns[columnId];
+                            const tasks = column.taskIds.map((taskId) => initialData.tasks[taskId]);
+                            //const isDropDisabled = index < initialData.homeIndex;
+                            const isDropDisabled = false;
+                            return (
+                                <LeadsColumn
+                                    key={column.id}
+                                    column={column}
+                                    tasks={tasks}
+                                    isDropDisabled={isDropDisabled}
+                                />
+                            );
+                        })
+                    }
+                </Container>
             </DragDropContext>
 
         </ColumnsLine>

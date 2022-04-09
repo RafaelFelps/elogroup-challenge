@@ -1,0 +1,21 @@
+.newLead {
+    grid-template-columns: 100px 100px 100px 100px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.newLeadButton {
+    color: #FFFFFF;
+    align-self: center;
+    background-color: #171b1c!important;
+    cursor: pointer;
+    opacity: 1;
+    width: 30%!important;
+    border-radius: 5px;
+    height: 50px;
+    margin: 10px;
+}
+.newLeadButton:hover {
+    opacity: 0.95;
+    transition: 0.5s;
+}

@@ -2,15 +2,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from './LoginFormComponent.module.css';
 
-
-
-
-
 function LoginFormComponent() {
     const Swal = require('sweetalert2');
     const [username, setUsername] = useState("");
     let navigate = useNavigate();
     const [password, setPassword] = useState("");
+    
     async function verifyHashedPassword(password: string, hashedPassword: string) {
         // Encryption lib
         const bcrypt = require('bcryptjs');

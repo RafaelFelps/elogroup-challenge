@@ -3,21 +3,7 @@ import logo from '../../img/elogroup_logo.png';
 import small_logo from '../../img/elogroup_small_logo.png';
 import LoginFormComponent from './LoginForm/LoginFormComponent';
 
-
-
-
 function LoginComponent() {
-
-
-
-
-  // Verify hashed password
-
-
-
-  // Form handle
-
-
   return (
     <div className={styles.root}>
       <div className={styles.info_side}>
