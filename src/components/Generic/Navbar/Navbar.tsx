@@ -2,7 +2,6 @@ import styles from './Navbar.module.css';
 import logo from '../../../img/elogroup_logo.png';
 import Logout from '../Logout/Logout';
 import { useNavigate } from 'react-router-dom';
-interface NavBar { }
 
 const NavBar = () => {
 

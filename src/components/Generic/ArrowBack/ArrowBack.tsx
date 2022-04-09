@@ -1,7 +1,4 @@
-import { FC } from 'react';
 import styles from './ArrowBack.module.css';
-
-interface ArrowBackProps { }
 
 const ArrowBack = () => {
     return (
