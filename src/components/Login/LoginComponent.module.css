@@ -77,25 +77,3 @@
     width: 60%;
 }
 
-.login_form input[type=button] {
-    color: #FFFFFF;
-    background: black;
-    cursor: pointer;
-    opacity: 0.8;
-    width: 30%;
-}
-
-.login_form input[type=button]:hover {
-    opacity: 1;
-    transition: 0.5s;
-}
-
-.login_button {
-    background-color: #000000;
-}
-
-.register{
-    cursor: pointer;
-    margin: 10px;
-    color:#000000;
-}

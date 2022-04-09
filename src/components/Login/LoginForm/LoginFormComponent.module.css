@@ -1,0 +1,27 @@
+.register {
+    cursor: pointer;
+    margin: 10px;
+    color: #000000;
+    align-self: center;
+}
+
+.btn_login {
+    color: #FFFFFF;
+    align-self: center;
+    background-color: #000000!important;
+    cursor: pointer;
+    opacity: 0.8;
+    width: 30%!important;
+}
+.btn_login:hover {
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.frm_login {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}

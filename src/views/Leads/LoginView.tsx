@@ -2,9 +2,8 @@ import { FC } from 'react';
 import LeadsComponent from '../../components/Leads/LeadsComponent';
 
 
-interface LeadsView { }
 
-const LeadsView: FC<LeadsView> = () => {
+const LeadsView = () => {
 
 
   return (

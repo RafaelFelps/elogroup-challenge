@@ -23,7 +23,7 @@
     height: 100vh;
 }
 
-.frm_login{
+.frm_register{
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -86,7 +86,7 @@
     width: 60%;
 }
 
-.register_form input[type=button] {
+.register_form input[type=submit] {
     color: #FFFFFF;
     background: black;
     cursor: pointer;
@@ -95,7 +95,7 @@
     align-self: center;
 }
 
-.register_form input[type=button]:hover {
+.register_form input[type=submit]:hover {
     opacity: 1;
     transition: 0.5s;
 }
