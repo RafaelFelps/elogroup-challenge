@@ -1,0 +1,21 @@
+{
+    "activeSession": "string",
+    "users": [
+      {
+        "id": "string",
+        "isLoggedIn": true,
+        "username": "string",
+        "password": "string",
+        "leads": [
+          {
+            "id": "string",
+            "situation": "string",
+            "name": "string",
+            "telephone": "string",
+            "email": "string",
+            "oportunities": "string"
+          }
+        ]
+      }
+    ]
+  }

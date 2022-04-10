@@ -18,7 +18,7 @@
 
 .modal {
     width: 45vh;
-    height: 600px;
+    height: 50vh;
     background: white;
     color: white;
     z-index: 10;
@@ -44,11 +44,14 @@
 }
 
 .modalContent {
+    display: flex;
+    flex-direction: column;
     padding: 10px;
     font-size: 14px;
     color: #2c3e50;
     text-align: center;
     height: 80%;
+    width: 90%;
 }
 
 .modalForm {
@@ -78,16 +81,20 @@
 }
 
 .oportunityTable {
-    width: 90%;
+    width: 100%;
     margin-top: 10px;
+    text-align: left;
 }
 
-.oportunityTable, th, td{
+.oportunityTable,
+th,
+td {
     border: 1px solid lightgray;
 }
 
-.oportunityTable > thead, .oportunityTable > tbody > tr{
-    padding: 10px!important;
+.oportunityTable>thead,
+.oportunityTable>tbody>tr {
+    padding: 10px !important;
 }
 
 .modalActions {
@@ -127,7 +134,7 @@
     transform: translate(-2px, 2px);
 }
 
-.deleteBtn {
+.submitBtn {
     margin-top: 10px;
     cursor: pointer;
     font-weight: 500;
@@ -135,32 +142,17 @@
     border-radius: 12px;
     font-size: 0.8rem;
     border: none;
-    color: #fff;
-    background: #ff3e4e;
+    color: white;
+    background: #171b1c;
     transition: all 0.25s ease;
 }
 
-.deleteBtn:hover {
-    box-shadow: 0 10px 20px -10px rgba(255, 62, 78, 0.6);
-    transform: translateY(-5px);
-    background: #ff3e4e;
-}
-
-.cancelBtn {
-    margin-top: 10px;
-    cursor: pointer;
-    font-weight: 500;
-    padding: 11px 28px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    border: none;
-    color: #2c3e50;
-    background: #fcfcfc;
-    transition: all 0.25s ease;
-}
-
-.cancelBtn:hover {
+.submitBtn:hover {
     box-shadow: none;
     transform: none;
-    background: whitesmoke;
+    background: #2A3133;
+}
+
+.oportunitySpan {
+    align-self: flex-start;
 }

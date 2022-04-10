@@ -3,6 +3,23 @@ import { useState, useEffect } from "react";
 import styles from "./ModalComponent.module.css";
 import { RiCloseLine } from "react-icons/ri";
 import Checkbox from "./Checkbox/CheckboxComponent";
+import { v4 as uuidv4 } from 'uuid';
+
+const Swal = require('sweetalert2');
+
+// Show modal
+function ShowModal(type: string, message?: string) {
+    let title;
+    type === "success" ? title = "Operação concluída com sucesso" : title = "Ooops";
+
+    Swal.fire({
+        icon: type,
+        title: title,
+        showConfirmButton: false,
+        html: message,
+    })
+}
+
 
 const Modal = ({ setIsOpen }: any) => {
 
@@ -12,26 +29,73 @@ const Modal = ({ setIsOpen }: any) => {
     const [analytics, setAnalytics] = useState(false);
     const [BPM, setBPM] = useState(false);
 
+    // Form fields
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+
+
     useEffect(() => {
         // If all checkboxes are checked, then the checkAll checkbox will
         // check automatically
         const isAllChecked = RPA && produtoDigital && analytics && BPM;
         setCheckAll(isAllChecked);
-      }, [RPA, produtoDigital, analytics, BPM])
+    }, [RPA, produtoDigital, analytics, BPM])
 
-    // function handleChange(e: any) {
-    //     if (e.target.value === "RPA")
-    //         setRPA(!RPA);
-    //     else if (e.target.value === "Produto Digital")
-    //         setProdutoDigital(!produtoDigital);
-    //     else if (e.target.value === "Analytics")
-    //         setAnalytics(!analytics);
-    //     else if (e.target.value === "BPM")
-    //         setBPM(!BPM);
-    // }
+
+    function handleForm(event: React.FormEvent<HTMLFormElement>) {
+        // Preventing the page from reloading
+        event.preventDefault();
+        let hasErrors = false;
+
+        if (name === "" || phone === "" || email === "") {
+            ShowModal("error", "Preencha todos os campos, tente novamente.");
+            hasErrors = true;
+            return hasErrors;
+        }
+
+        if (!RPA && !produtoDigital && !analytics && !BPM) {
+            ShowModal("error", "Selecione pelo menos 1 item, tente novamente.");
+            hasErrors = true;
+            return hasErrors;
+        }
+
+        if (!hasErrors) {
+            saveLead();
+        }
+    }
+
+
+    function saveLead() {
+
+        let leadTypes = [];
+        leadTypes.push(RPA ? "RPA" : null);
+        leadTypes.push(produtoDigital ? "Produto Digital" : null);
+        leadTypes.push(analytics ? "Analytics" : null);
+        leadTypes.push(BPM ? "BPM" : null);
+
+        const loggedUser = localStorage.getItem("LoggedUser");
+        // Get list of all leads
+        let allLeads = JSON.parse(localStorage.getItem("Leads") || '[]');
+
+        const leadObject = {
+            username: loggedUser,
+            name: name,
+            telephone: phone,
+            email: email,
+            oportunities: leadTypes,
+            id: uuidv4()
+        } || {};
+
+        localStorage.setItem("Leads", JSON.stringify([...allLeads, leadObject]));
+        setIsOpen(false);
+        ShowModal("success", "Operação concluída com sucesso!");
+
+
+
+    }
 
     function checkAllCheckboxes() {
-        console.log("TESTE")
         const isAllChecked = RPA && produtoDigital && analytics && BPM;
         setCheckAll(!isAllChecked);
         setRPA(!isAllChecked);
@@ -56,40 +120,37 @@ const Modal = ({ setIsOpen }: any) => {
                     </button>
 
                     {/* MODAL CONTENT */}
-                    <div className={styles.modalContent}>
-                        <form action="" className={styles.modalForm}>
-                            <input placeholder="Nome" name="name" type="text" />
-                            <input placeholder="Telefone" name="phone" type="text" />
-                            <input placeholder="E-mail" name="email" type="text" />
+                    <form action="" className={styles.modalForm} onSubmit={handleForm}>
+                        <div className={styles.modalContent}>
+                            <input placeholder="Nome *" name="name" type="text" onChange={e => setName(e.target.value)} value={name} />
+                            <input placeholder="Telefone *" name="phone" type="text" onChange={e => setPhone(e.target.value)} value={phone} />
+                            <input placeholder="E-mail *" name="email" type="text" onChange={e => setEmail(e.target.value)} value={email} />
+                            <span className={styles.oportunitySpan} >Oportunidades *</span>
                             <table className={styles.oportunityTable}>
                                 <thead>
-                                    <Checkbox checked={checkAll} checkValue="All" checkText="" onChange={checkAllCheckboxes}/>
+                                    <Checkbox checked={checkAll} checkValue="All" checkText="" onChange={checkAllCheckboxes} />
+                                </thead>
+                                <tbody>
                                     <Checkbox checked={RPA} checkValue="RPA" checkText="RPA" onChange={() => setRPA(!RPA)} />
                                     <Checkbox checked={produtoDigital} checkValue="Produto Digital" checkText="Produto Digital" onChange={() => setProdutoDigital(!produtoDigital)} />
                                     <Checkbox checked={analytics} checkValue="Analytics" checkText="Analytics" onChange={() => setAnalytics(!analytics)} />
                                     <Checkbox checked={BPM} checkValue="BPM" checkText="BPM" onChange={() => setBPM(!BPM)} />
-                                </thead>
-                                <tbody>
-
                                 </tbody>
                             </table>
-                        </form>
-                    </div>
-
-                    {/* MODAL FOOTER */}
-                    <div className={styles.modalActions}>
-                        <div className={styles.actionsContainer}>
-                            <button className={styles.deleteBtn} onClick={() => setIsOpen(false)}>
-                                Delete
-                            </button>
-                            <button
-                                className={styles.cancelBtn}
-                                onClick={() => setIsOpen(false)}
-                            >
-                                Cancel
-                            </button>
                         </div>
-                    </div>
+
+                        {/* MODAL FOOTER */}
+                        <div className={styles.modalActions}>
+                            <div className={styles.actionsContainer}>
+                                <button
+                                    type="submit"
+                                    className={styles.submitBtn}
+                                >
+                                    Salvar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </>

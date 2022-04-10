@@ -17,3 +17,8 @@
 .checkboxRound:checked {
     background-color: #171B1C;
 }
+
+.tdSpan {
+    align-self: flex-start;
+    margin-left: 5px;
+}
