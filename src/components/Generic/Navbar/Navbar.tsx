@@ -8,6 +8,7 @@ const NavBar = () => {
     const navigate = useNavigate();
 
     function logout() {
+        localStorage.removeItem("LoggedUser");
         navigate("/");
     }
 

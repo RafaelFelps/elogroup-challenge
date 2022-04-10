@@ -38,6 +38,7 @@ function LoginFormComponent() {
         const hashedPassword = usersFilter[0].password;
         // Verify if password matches with hash
         if (await verifyHashedPassword(password, hashedPassword)) {
+            localStorage.setItem("LoggedUser", username);
             navigate('/leads')
         } else {
             Swal.fire({
