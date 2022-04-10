@@ -17,8 +17,8 @@
 }
 
 .modal {
-    width: 45vh;
-    height: 600px;
+    width: 60vh;
+    height: 500px;
     background: white;
     color: white;
     z-index: 10;
@@ -155,4 +155,5 @@ td {
 
 .oportunitySpan {
     align-self: flex-start;
+    margin-left: 5px;
 }
