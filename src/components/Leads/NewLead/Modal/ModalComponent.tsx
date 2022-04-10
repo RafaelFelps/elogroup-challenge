@@ -122,9 +122,9 @@ const Modal = ({ setIsOpen }: any) => {
                     {/* MODAL CONTENT */}
                     <form action="" className={styles.modalForm} onSubmit={handleForm}>
                         <div className={styles.modalContent}>
-                            <input placeholder="Nome *" name="name" type="text" onChange={e => setName(e.target.value)} value={name} />
-                            <input placeholder="Telefone *" name="phone" type="number" onChange={e => setPhone(e.target.value)} value={phone}/>
-                            <input placeholder="E-mail *" name="email" type="text" onChange={e => setEmail(e.target.value)} value={email} />
+                            <input placeholder="Nome *" autoComplete="off" name="name" type="text" onChange={e => setName(e.target.value)} value={name} />
+                            <input placeholder="Telefone *" autoComplete="off" name="phone" type="number" onChange={e => setPhone(e.target.value)} value={phone}/>
+                            <input placeholder="E-mail *" autoComplete="off" name="email" type="text" onChange={e => setEmail(e.target.value)} value={email} />
                             <span className={styles.oportunitySpan} >Oportunidades *</span>
                             <table className={styles.oportunityTable}>
                                 <thead>

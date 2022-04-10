@@ -118,6 +118,22 @@ function RegisterComponent() {
       return;
     }
 
+    // Valid if username already exists
+    // Get all users
+    const usersParsed = JSON.parse(localStorage.getItem("Users") || '{}')
+
+    const usersFilter = usersParsed.filter((obj: { username: string; }) => {
+      return obj.username === user.value
+    });
+
+    if (usersFilter.length > 0) {
+      hasErrors = true;
+      ShowModal("error", "Usuário já cadastrado, tente novamente.");
+      return;
+    }
+
+
+
     if (!hasErrors) {
       registerUser(user.value, password.value, confirmPassword.value);
     }

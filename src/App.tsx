@@ -11,16 +11,17 @@ import {
 import LoginView from './views/Login/LoginView';
 import RegisterView from './views/Register/RegisterView';
 import LeadsView from './views/Leads/LoginView';
+import NotFound from './components/Generic/PageNotFound/NotFound';
 
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LoginView/>} />
-        <Route path="/register" element={<RegisterView/>} />
-        <Route path="/leads" element={ <LeadsView/> } />
-        <Route path="*"/> {/* 404 */}
+        <Route path="/" element={<LoginView />} />
+        <Route path="/register" element={<RegisterView />} />
+        <Route path="/leads" element={<LeadsView />} />
+        <Route path="*" element={<NotFound />} /> {/* 404 */}
       </Routes>
     </BrowserRouter>
   );

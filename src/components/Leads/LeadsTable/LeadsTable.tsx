@@ -29,7 +29,7 @@ function LeadsTable() {
 
     const [initialData, setInitialData] = useState(data);
     const Swal = require('sweetalert2');
-    console.log(data.tasks)
+    console.log(data)
     const loggedUser = localStorage.getItem('LoggedUser');
     const leadsParsed = JSON.parse(localStorage.getItem("Leads") || '{}')
     if (Object.keys(leadsParsed).length) {
