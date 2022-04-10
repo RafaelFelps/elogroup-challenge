@@ -17,8 +17,9 @@
 }
 
 .modal {
-    width: 300px;;
-    height: 500px;
+    overflow: auto;
+    width: 100vmin;
+    height: 70vmin;
     background: white;
     color: white;
     z-index: 10;
@@ -98,7 +99,6 @@ td {
 }
 
 .modalActions {
-    position: absolute;
     bottom: 2px;
     margin-bottom: 10px;
     width: 100%;
