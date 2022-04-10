@@ -123,7 +123,7 @@ const Modal = ({ setIsOpen }: any) => {
                     <form action="" className={styles.modalForm} onSubmit={handleForm}>
                         <div className={styles.modalContent}>
                             <input placeholder="Nome *" name="name" type="text" onChange={e => setName(e.target.value)} value={name} />
-                            <input placeholder="Telefone *" name="phone" type="text" onChange={e => setPhone(e.target.value)} value={phone} />
+                            <input placeholder="Telefone *" name="phone" type="number" onChange={e => setPhone(e.target.value)} value={phone}/>
                             <input placeholder="E-mail *" name="email" type="text" onChange={e => setEmail(e.target.value)} value={email} />
                             <span className={styles.oportunitySpan} >Oportunidades *</span>
                             <table className={styles.oportunityTable}>
