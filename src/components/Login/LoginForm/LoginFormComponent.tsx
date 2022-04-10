@@ -21,7 +21,6 @@ function LoginFormComponent() {
         // Get all users
         const usersParsed = JSON.parse(localStorage.getItem("Users") || '{}')
 
-        // Get hashed password from user
         const usersFilter = usersParsed.filter((obj: { username: string; }) => {
             return obj.username === username
         });

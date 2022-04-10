@@ -13,8 +13,8 @@ interface LeadsColumnProps {
     readonly isDropDisabled: boolean;
 }
 
-interface TasklistStyleProps{
-    isDraggingOver: boolean;   
+interface TasklistStyleProps {
+    isDraggingOver: boolean;
 }
 
 const Container = styled.div`

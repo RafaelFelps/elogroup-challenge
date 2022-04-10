@@ -26,8 +26,19 @@ const Container = styled.div`
 `;
 
 function LeadsTable() {
+
     const [initialData, setInitialData] = useState(data);
     const Swal = require('sweetalert2');
+    console.log(data.tasks)
+    const loggedUser = localStorage.getItem('LoggedUser');
+    const leadsParsed = JSON.parse(localStorage.getItem("Leads") || '{}')
+    if (Object.keys(leadsParsed).length) {
+        const usersFilter = leadsParsed.filter((obj: { username: string; }) => {
+            return obj.username === loggedUser
+        });
+        console.log(usersFilter);
+    }
+
 
     function canMove(source: String, destination: String) {
         const sourceColumn = source.split("-")[1];
@@ -36,7 +47,7 @@ function LeadsTable() {
 
         if (destinationColumn < sourceColumn || (parseInt(destinationColumn) > nextColumn)) {
             return false;
-        }  
+        }
         return true;
     }
 
@@ -117,7 +128,6 @@ function LeadsTable() {
 
     return (
         <ColumnsLine>
-
             <DragDropContext onDragEnd={OnDragEnd}>
                 <Container>
                     {

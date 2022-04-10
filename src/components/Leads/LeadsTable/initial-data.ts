@@ -27,17 +27,17 @@ const initialData: InitialData = {
         'column-1': {
             id: 'column-1',
             title: 'Cliente em Potencial',
-            taskIds: ['task-1', 'task-2'],
+            taskIds: ['task-1', 'task-2', 'task-3','task-4'],
         },
         'column-2': {
             id: 'column-2',
             title: 'Dados Confirmados',
-            taskIds: ['task-4'],
+            taskIds: [],
         },
         'column-3': {
             id: 'column-3',
             title: 'Reunião Agendada',
-            taskIds: ['task-3'],
+            taskIds: [],
         }
     },
     // Facilitate reordering of the columns

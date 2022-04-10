@@ -1,10 +1,7 @@
-import { FC } from 'react';
 import LoginComponent from '../../components/Login/LoginComponent';
 
 
-interface LoginView { }
-
-const LoginView: FC<LoginView> = () => {
+const LoginView = () => {
 
 
   return (
