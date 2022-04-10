@@ -11,7 +11,7 @@ import {
 import LoginView from './views/Login/LoginView';
 import RegisterView from './views/Register/RegisterView';
 import LeadsView from './views/Leads/LoginView';
-import NotFound from './components/Generic/PageNotFound/NotFound';
+import NotFound from './components/Generic/NotFound/NotFound';
 
 
 function App() {
