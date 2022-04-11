@@ -1,9 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
-import data from './initial-data';
+import { useContext } from 'react';
 import LeadsColumn from './LeadsColumn/LeadsColumn';
 import styled from 'styled-components'
 import { DragDropContext } from 'react-beautiful-dnd';
-import { useNavigate } from 'react-router-dom';
 import { LeadsContext } from '../../../Contexts/LeadsContext';
 
 
@@ -29,7 +27,6 @@ const Container = styled.div`
 
 
 function LeadsTable() {
-    const navigate = useNavigate();
     const { state: dataTest, setState:setDataTest } = useContext(LeadsContext);
 
     const Swal = require('sweetalert2');

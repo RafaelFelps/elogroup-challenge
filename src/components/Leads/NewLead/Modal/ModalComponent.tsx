@@ -3,21 +3,9 @@ import { useState, useEffect, useContext } from "react";
 import styles from "./ModalComponent.module.css";
 import { RiCloseLine } from "react-icons/ri";
 import Checkbox from "./Checkbox/CheckboxComponent";
-import { v4 as uuidv4 } from 'uuid';
 import { LeadsContext } from "../../../../Contexts/LeadsContext";
 const Swal = require('sweetalert2');
 
-
-// interface TaskProps {
-//     task: {
-//         username: string,
-//         name: string,
-//         telephone: string,
-//         email: string,
-//         oportunities: string[],
-//         id: string,
-//     };
-// }
 
 
 // Show modal
@@ -91,10 +79,6 @@ const Modal = ({ setIsOpen }: any) => {
         const loggedUser = localStorage.getItem("LoggedUser");
         // Get list of all leads
         let data = JSON.parse(localStorage.getItem("initialData") || "{}");
-        let count = 1;
-        for (let properties in data.tasks) {
-            count = count + 1
-        }
 
         const leadObject = {
             username: loggedUser,
