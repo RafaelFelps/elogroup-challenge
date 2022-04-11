@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import styles from "./ModalComponent.module.css";
 import { RiCloseLine } from "react-icons/ri";
 import Checkbox from "./Checkbox/CheckboxComponent";
-import { v4 as uuidv4 } from 'uuid';
 
 const Swal = require('sweetalert2');
 
