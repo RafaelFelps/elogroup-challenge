@@ -1,11 +1,15 @@
 import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components'
-
+import { v4 as uuidv4 } from 'uuid';
 
 interface TaskProps {
     task: {
-        id: string;
-        content: string;
+        username: string,
+        name: string,
+        telephone: string,
+        email: string,
+        oportunities: string[],
+        id: string,
     };
     index: number;
 }
@@ -34,7 +38,7 @@ function Task(props: TaskProps) {
                     {...provided.dragHandleProps}
                     isDragging={snapshot.isDragging}
                 >
-                    {props.task.content}
+                    {props.task.name}
                 </Container>
             )}
         </Draggable>

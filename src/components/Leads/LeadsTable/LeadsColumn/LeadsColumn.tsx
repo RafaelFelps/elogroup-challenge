@@ -9,7 +9,14 @@ interface LeadsColumnProps {
         title: string;
         taskIds: string[];
     };
-    tasks: { id: string, content: string }[];
+    tasks: { 
+        username: string,
+        name: string,
+        telephone: string,
+        email: string,
+        oportunities: string[],
+        id: string
+     }[];
     readonly isDropDisabled: boolean;
 }
 

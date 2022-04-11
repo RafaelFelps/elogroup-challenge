@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import data from './initial-data';
 import LeadsColumn from './LeadsColumn/LeadsColumn';
 import styled from 'styled-components'
 import { DragDropContext } from 'react-beautiful-dnd';
+import { useNavigate } from 'react-router-dom';
 
 
 const ColumnsLine = styled.div`
@@ -25,20 +26,93 @@ const Container = styled.div`
 
 `;
 
+interface InitialData {
+
+    tasks: {
+        [user: string]: {
+            username: string,
+            name: string,
+            telephone: string,
+            email: string,
+            oportunities: string[],
+            id: string
+        }
+    },
+    columns: {
+        [column: string]: {
+            id: string,
+            title: string,
+            taskIds: string[],
+        }
+    },
+    columnOrder: string[]
+}
+
 function LeadsTable() {
+    const [loggedUser, setLoggedUser] = useState("");
+    const navigate = useNavigate();
+    const [dataTest, setDataTest] = useState<InitialData>(
+        {
+            tasks: {},
+            columns: {
+                "column-1": {
+                    id: "column-1",
+                    title: "Cliente em Potencial",
+                    taskIds: []
+                },
+                "column-2": {
+                    id: "column-2",
+                    title: "Dados Confirmados",
+                    taskIds: []
+                },
+                "column-3": {
+                    id: "column-3",
+                    title: "Reunião Agendada",
+                    taskIds: []
+                }
+            },
+            columnOrder: ["column-1", "column-2", "column-3"]
+        }
 
-    const [initialData, setInitialData] = useState(data);
+    );
+
+
+    useEffect(() => {
+        const loggedUser = localStorage.getItem('LoggedUser') || "";
+        if(!loggedUser){
+            navigate("/");
+        }
+        const dataTest: InitialData = JSON.parse(localStorage.getItem("initialData") || `
+        { 
+            "tasks": {
+                "task_1": {}
+            },
+            "columns": {            
+                "column_1": {
+                    "id": "column_1",
+                    "title": "Cliente em Potencial",
+                    "taskIds": []
+                },
+                "column_2": {
+                    "id": "column_2",
+                    "title": "Dados Confirmados",
+                    "taskIds": []
+                },
+                "column_3": {
+                    "id": "column_3",
+                    "title": "Reunião Agendada",
+                    "taskIds": []
+                }
+            },
+            "columnOrder": ["column_1", "column_2", "column_3"]
+        }
+        `);
+        setLoggedUser(loggedUser);
+        setDataTest(dataTest);
+    }, []);
+
+
     const Swal = require('sweetalert2');
-    console.log(data.tasks)
-    const loggedUser = localStorage.getItem('LoggedUser');
-    const leadsParsed = JSON.parse(localStorage.getItem("Leads") || '{}')
-    if (Object.keys(leadsParsed).length) {
-        const usersFilter = leadsParsed.filter((obj: { username: string; }) => {
-            return obj.username === loggedUser
-        });
-        console.log(usersFilter[0]); 
-    }
-
 
     function canMove(source: String, destination: String) {
         const sourceColumn = source.split("-")[1];
@@ -74,8 +148,8 @@ function LeadsTable() {
             return;
         }
 
-        const start = initialData.columns[source.droppableId];
-        const finish = initialData.columns[destination.droppableId];
+        const start = dataTest.columns[source.droppableId];
+        const finish = dataTest.columns[destination.droppableId];
 
         if (start === finish) {
             const newTaskIds = Array.from(start.taskIds);
@@ -88,14 +162,14 @@ function LeadsTable() {
             }
 
             const newState = {
-                ...initialData,
+                ...dataTest,
                 columns: {
-                    ...initialData.columns,
+                    ...dataTest.columns,
                     [newColumn.id]: newColumn,
                 }
             }
 
-            setInitialData(newState);
+            setDataTest(newState);
             return;
         }
 
@@ -115,14 +189,15 @@ function LeadsTable() {
         }
 
         const newState = {
-            ...initialData,
+            ...dataTest,
             columns: {
-                ...initialData.columns,
+                ...dataTest.columns,
                 [newStart.id]: newStart,
                 [newFinish.id]: newFinish
             }
         }
-        setInitialData(newState);
+
+        setDataTest(newState);
 
     }
 
@@ -131,11 +206,11 @@ function LeadsTable() {
             <DragDropContext onDragEnd={OnDragEnd}>
                 <Container>
                     {
-                        initialData.columnOrder.map((columnId, index) => {
+                        dataTest.columnOrder.map((columnId, index) => {
 
-                            const column = initialData.columns[columnId];
-                            const tasks = column.taskIds.map((taskId) => initialData.tasks[taskId]);
-                            //const isDropDisabled = index < initialData.homeIndex;
+                            const column = dataTest.columns[columnId];
+                            const tasks = column.taskIds.map((taskId) => dataTest.tasks[taskId]);
+                            //const isDropDisabled = index < dataTest.homeIndex;
                             const isDropDisabled = false;
                             return (
                                 <LeadsColumn

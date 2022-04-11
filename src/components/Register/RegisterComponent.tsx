@@ -38,6 +38,35 @@ function RegisterComponent() {
       let allUsers = JSON.parse(localStorage.getItem("Users") || '[]');
 
       localStorage.setItem('Users', JSON.stringify([...allUsers, user]));
+
+      const initialData = JSON.parse(JSON.stringify(`
+      { 
+          "tasks": {
+              "task_1": { "id": "task_1", "name": "Teste", "username": "string","email": "string", "telephone": "string", "oportunities": ["", "", "", "RPA"]}           
+            },
+          "columns": {            
+              "column_1": {
+                  "id": "column_1",
+                  "title": "Cliente em Potencial",
+                  "taskIds": []
+              },
+              "column_2": {
+                  "id": "column_2",
+                  "title": "Dados Confirmados",
+                  "taskIds": ["task_1"]
+              },
+              "column_3": {
+                  "id": "column_3",
+                  "title": "Reunião Agendada",
+                  "taskIds": []
+              }
+          },
+          "columnOrder": ["column_1", "column_2", "column_3"]
+      }`));
+
+
+      localStorage.setItem("initialData", initialData);
+
       navigate(-1);
 
       ShowModal("success")

@@ -3,8 +3,21 @@ import { useState, useEffect } from "react";
 import styles from "./ModalComponent.module.css";
 import { RiCloseLine } from "react-icons/ri";
 import Checkbox from "./Checkbox/CheckboxComponent";
-
+import { v4 as uuidv4 } from 'uuid';
 const Swal = require('sweetalert2');
+
+
+interface TaskProps {
+    task: {
+        username: string,
+        name: string,
+        telephone: string,
+        email: string,
+        oportunities: string[],
+        id: string,
+    };
+}
+
 
 // Show modal
 function ShowModal(type: string, message?: string) {
@@ -84,7 +97,7 @@ const Modal = ({ setIsOpen }: any) => {
             telephone: phone,
             email: email,
             oportunities: leadTypes,
-            id: "task-"+(leadsQuantity + 1)
+            id: uuidv4()
         } || {};
 
         localStorage.setItem("Leads", JSON.stringify([...allLeads, leadObject]));
@@ -121,7 +134,7 @@ const Modal = ({ setIsOpen }: any) => {
                     <form action="" className={styles.modalForm} onSubmit={handleForm}>
                         <div className={styles.modalContent}>
                             <input placeholder="Nome *" autoComplete="off" name="name" type="text" onChange={e => setName(e.target.value)} value={name} />
-                            <input placeholder="Telefone *" autoComplete="off" name="phone" type="number" onChange={e => setPhone(e.target.value)} value={phone}/>
+                            <input placeholder="Telefone *" autoComplete="off" name="phone" type="number" onChange={e => setPhone(e.target.value)} value={phone} />
                             <input placeholder="E-mail *" autoComplete="off" name="email" type="email" onChange={e => setEmail(e.target.value)} value={email} />
                             <span className={styles.oportunitySpan} >Oportunidades *</span>
                             <table className={styles.oportunityTable}>
