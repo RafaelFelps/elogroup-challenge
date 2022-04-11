@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Modal from './Modal/ModalComponent';
 import styles from './NewLead.module.css';
 
+
 function NewLead() {
     const [isOpen, setIsOpen] = useState(false);
     return (

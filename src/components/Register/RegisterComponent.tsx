@@ -41,9 +41,7 @@ function RegisterComponent() {
 
       const initialData = JSON.parse(JSON.stringify(`
       { 
-          "tasks": {
-              "task_1": { "id": "task_1", "name": "Teste", "username": "string","email": "string", "telephone": "string", "oportunities": ["", "", "", "RPA"]}           
-            },
+          "tasks": { },
           "columns": {            
               "column_1": {
                   "id": "column_1",
@@ -53,7 +51,7 @@ function RegisterComponent() {
               "column_2": {
                   "id": "column_2",
                   "title": "Dados Confirmados",
-                  "taskIds": ["task_1"]
+                  "taskIds": []
               },
               "column_3": {
                   "id": "column_3",

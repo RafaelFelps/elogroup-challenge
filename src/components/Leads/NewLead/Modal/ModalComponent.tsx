@@ -1,22 +1,23 @@
 // @src/components/Modal.jsx
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styles from "./ModalComponent.module.css";
 import { RiCloseLine } from "react-icons/ri";
 import Checkbox from "./Checkbox/CheckboxComponent";
 import { v4 as uuidv4 } from 'uuid';
+import { LeadsContext } from "../../../../Contexts/LeadsContext";
 const Swal = require('sweetalert2');
 
 
-interface TaskProps {
-    task: {
-        username: string,
-        name: string,
-        telephone: string,
-        email: string,
-        oportunities: string[],
-        id: string,
-    };
-}
+// interface TaskProps {
+//     task: {
+//         username: string,
+//         name: string,
+//         telephone: string,
+//         email: string,
+//         oportunities: string[],
+//         id: string,
+//     };
+// }
 
 
 // Show modal
@@ -35,6 +36,7 @@ function ShowModal(type: string, message?: string) {
 
 const Modal = ({ setIsOpen }: any) => {
 
+    const ModalContext = useContext(LeadsContext);
     const [checkAll, setCheckAll] = useState(false);
     const [RPA, setRPA] = useState(false);
     const [produtoDigital, setProdutoDigital] = useState(false);
@@ -88,8 +90,11 @@ const Modal = ({ setIsOpen }: any) => {
 
         const loggedUser = localStorage.getItem("LoggedUser");
         // Get list of all leads
-        let allLeads = JSON.parse(localStorage.getItem("Leads") || '[]');
-        const leadsQuantity = allLeads.length;
+        let data = JSON.parse(localStorage.getItem("initialData") || "{}");
+        let count = 1;
+        for (let properties in data.tasks) {
+            count = count + 1
+        }
 
         const leadObject = {
             username: loggedUser,
@@ -97,13 +102,20 @@ const Modal = ({ setIsOpen }: any) => {
             telephone: phone,
             email: email,
             oportunities: leadTypes,
-            id: uuidv4()
+            id: (Math.floor(Math.random() * 9999)).toString()
         } || {};
 
-        localStorage.setItem("Leads", JSON.stringify([...allLeads, leadObject]));
+        // Save task
+        data.tasks[leadObject.id] = leadObject;
+
+        // Set column task
+        data.columns["column_1"].taskIds.push(leadObject.id);
+
+        localStorage.setItem("initialData", JSON.stringify(data));
+        ModalContext.setState(data);
+
         setIsOpen(false);
         ShowModal("success", "Operação concluída com sucesso!");
-
     }
 
     function checkAllCheckboxes() {
