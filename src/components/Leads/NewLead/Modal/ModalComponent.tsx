@@ -77,6 +77,7 @@ const Modal = ({ setIsOpen }: any) => {
         const loggedUser = localStorage.getItem("LoggedUser");
         // Get list of all leads
         let allLeads = JSON.parse(localStorage.getItem("Leads") || '[]');
+        const leadsQuantity = allLeads.length;
 
         const leadObject = {
             username: loggedUser,
@@ -84,14 +85,12 @@ const Modal = ({ setIsOpen }: any) => {
             telephone: phone,
             email: email,
             oportunities: leadTypes,
-            id: uuidv4()
+            id: "task-"+(leadsQuantity + 1)
         } || {};
 
         localStorage.setItem("Leads", JSON.stringify([...allLeads, leadObject]));
         setIsOpen(false);
         ShowModal("success", "Operação concluída com sucesso!");
-
-
 
     }
 
@@ -124,7 +123,7 @@ const Modal = ({ setIsOpen }: any) => {
                         <div className={styles.modalContent}>
                             <input placeholder="Nome *" autoComplete="off" name="name" type="text" onChange={e => setName(e.target.value)} value={name} />
                             <input placeholder="Telefone *" autoComplete="off" name="phone" type="number" onChange={e => setPhone(e.target.value)} value={phone}/>
-                            <input placeholder="E-mail *" autoComplete="off" name="email" type="text" onChange={e => setEmail(e.target.value)} value={email} />
+                            <input placeholder="E-mail *" autoComplete="off" name="email" type="email" onChange={e => setEmail(e.target.value)} value={email} />
                             <span className={styles.oportunitySpan} >Oportunidades *</span>
                             <table className={styles.oportunityTable}>
                                 <thead>

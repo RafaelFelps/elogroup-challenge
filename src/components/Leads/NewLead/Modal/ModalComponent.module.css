@@ -90,7 +90,8 @@
 }
 
 .modalForm input[type="text"],
-.modalForm input[type="number"] {
+.modalForm input[type="number"],
+.modalForm input[type="email"] {
     font-size: 16px;
     font-weight: normal;
     background: rgba(57, 57, 57, 0.07);
@@ -99,6 +100,7 @@
     border: none;
     border-radius: 10px;
     width: 100%;
+    padding: 10px;
 }
 
 input::-webkit-outer-spin-button,

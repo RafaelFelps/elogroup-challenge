@@ -29,14 +29,14 @@ function LeadsTable() {
 
     const [initialData, setInitialData] = useState(data);
     const Swal = require('sweetalert2');
-    console.log(data)
+    console.log(data.tasks)
     const loggedUser = localStorage.getItem('LoggedUser');
     const leadsParsed = JSON.parse(localStorage.getItem("Leads") || '{}')
     if (Object.keys(leadsParsed).length) {
         const usersFilter = leadsParsed.filter((obj: { username: string; }) => {
             return obj.username === loggedUser
         });
-        console.log(usersFilter);
+        console.log(usersFilter[0]); 
     }
 
 
