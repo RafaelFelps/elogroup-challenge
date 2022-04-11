@@ -122,16 +122,19 @@ function RegisterComponent() {
     // Get all users
     const usersParsed = JSON.parse(localStorage.getItem("Users") || '{}')
 
-    const usersFilter = usersParsed.filter((obj: { username: string; }) => {
-      return obj.username === user.value
-    });
+    if (Object.keys(usersParsed).length) {
+      const usersFilter = usersParsed.filter((obj: { username: string; }) => {
+        return obj.username === user.value
+      });
 
-    if (usersFilter.length > 0) {
-      hasErrors = true;
-      ShowModal("error", "Usuário já cadastrado, tente novamente.");
-      return;
+
+      if (usersFilter.length > 0) {
+        hasErrors = true;
+        ShowModal("error", "Usuário já cadastrado, tente novamente.");
+        return;
+      }
+
     }
-
 
 
     if (!hasErrors) {
