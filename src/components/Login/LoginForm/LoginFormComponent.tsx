@@ -7,7 +7,7 @@ function LoginFormComponent() {
     const [username, setUsername] = useState("");
     let navigate = useNavigate();
     const [password, setPassword] = useState("");
-    
+
     async function verifyHashedPassword(password: string, hashedPassword: string) {
         // Encryption lib
         const bcrypt = require('bcryptjs');
@@ -16,6 +16,19 @@ function LoginFormComponent() {
         const doesPasswordMatch = bcrypt.compareSync(password, hashedPassword)
         return doesPasswordMatch;
     }
+
+    function ShowModal(type: string, message?: string) {
+        let title;
+        type === "success" ? title = "Operação concluída com sucesso" : title = "Ooops";
+
+        Swal.fire({
+            icon: type,
+            title: title,
+            showConfirmButton: false,
+            html: message,
+        })
+    }
+
 
     async function login(username: string, password: string) {
         // Get all users
@@ -26,12 +39,7 @@ function LoginFormComponent() {
         });
 
         if (usersFilter.length === 0) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Ooops',
-                showConfirmButton: false,
-                text: 'Usuário ou senha inválidos, tente novamente',
-            })
+            ShowModal('error', 'Usuário ou senha inválidos, tente novamente');
         }
 
         const hashedPassword = usersFilter[0].password;
@@ -54,15 +62,14 @@ function LoginFormComponent() {
         event.preventDefault();
         const { user, password } = document.forms[0];
 
+        const data = localStorage.getItem('initialData');
+        if (!data) {
+            ShowModal('error', 'Usuário ou senha inválidos, tente novamente');
+        }
+
         if (user.value === "" || password.value === "") {
             // Return error alert and add css to inputs
-
-            Swal.fire({
-                icon: 'error',
-                title: 'Ooops',
-                showConfirmButton: false,
-                text: 'Usuário ou senha inválidos, tente novamente',
-            })
+            ShowModal('error', 'Usuário ou senha inválidos, tente novamente');
         } else {
             login(user.value, password.value)
         }
