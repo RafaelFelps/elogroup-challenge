@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "dev": "react-scripts start",
+    "init": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
