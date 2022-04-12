@@ -27,8 +27,8 @@ const Container = styled.div`
 
 
 function LeadsTable() {
-    const { state: dataTest, setState:setDataTest } = useContext(LeadsContext);
-
+    const { state: dataTest, setState: setDataTest } = useContext(LeadsContext);
+    //const ModalContext = useContext(LeadsContext);
     const Swal = require('sweetalert2');
 
     function canMove(source: String, destination: String) {
@@ -85,7 +85,6 @@ function LeadsTable() {
                     [newColumn.id]: newColumn,
                 }
             }
-
             setDataTest(newState);
             return;
         }
@@ -114,6 +113,11 @@ function LeadsTable() {
             }
         }
 
+        const storage = JSON.parse(localStorage.getItem("initialData") || "{}");
+        const newColumns = newState.columns;
+        storage.columns = newColumns
+
+        localStorage.setItem("initialData", JSON.stringify(storage));
         setDataTest(newState);
 
     }
