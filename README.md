@@ -14,8 +14,4 @@ Executa a aplicação em modo de desenvolvimento.
 
 Abra [http://localhost:3000](http://localhost:3000) no navegador.
 
-### `npm test`
-
-Iniciará o Jest para a execução dos testes unitários.
-
 
