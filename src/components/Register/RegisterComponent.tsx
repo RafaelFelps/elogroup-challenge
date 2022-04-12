@@ -180,8 +180,12 @@ function RegisterComponent() {
       </div>
 
       <div className={styles.register_side}>
+        <div className={styles.showOnMobile}>
+          <Link to="/">
+            <ArrowBack></ArrowBack>
+          </Link>
+        </div>
         <div className={styles.register_form}>
-
           <img src={small_logo} alt="logomarca elogroup" className={styles.elogroup_small_logo} />
 
           <h1>Registre-se</h1>

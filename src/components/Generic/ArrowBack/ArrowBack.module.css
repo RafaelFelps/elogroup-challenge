@@ -1,6 +1,24 @@
-.back_image{
+@media screen and (min-width: 701px) {
+
+    .back_image {
+        color: white;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .back_image {
+        color: black;
+    }
+
+}
+
+.back_image {
     max-width: 2rem;
     max-height: 2rem;
-    color: white;
     margin: 10px 0 0 10px;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 }

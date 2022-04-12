@@ -12,7 +12,6 @@ function LoginComponent() {
 
       <div className={styles.login_side}>
         <div className={styles.login_form}>
-
           <img src={small_logo} alt="elogroup logo" className={styles.elogroup_small_logo} />
 
           <h1>Bem Vindo</h1>
