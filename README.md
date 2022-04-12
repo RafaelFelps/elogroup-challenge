@@ -9,7 +9,7 @@ https://elogroup-challenge.herokuapp.com/
 Na pasta raiz do projeto, você deve executar os seguintes comandos:
 ### `npm install`
 Todas as dependências utilizadas serão instaladas.
-### `npm init`
+### `npm run-app`
 Executa a aplicação em modo de desenvolvimento.
 
 Abra [http://localhost:3000](http://localhost:3000) no navegador.
